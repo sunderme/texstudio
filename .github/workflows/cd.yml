@@ -4,6 +4,25 @@ on:
   - pull_request
 
 jobs:
+  build-win:
+    name: win build (mxe)
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: git mingw-w64-x86_64-toolchain mingw-w64-x86_64-nsis mingw-w64-x86_64-poppler mingw-w64-x86_64-qt5
+      - name: Configure
+        run: qmake texstudio.pro CONFIG-=debug
+
+      - name: Build
+        run: make -j 2
+
   build-linux-win:
     name: win build (mxe)
     runs-on: ubuntu-latest
