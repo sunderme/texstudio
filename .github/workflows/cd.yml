@@ -19,7 +19,6 @@ jobs:
           install: git mingw-w64-x86_64-toolchain mingw-w64-x86_64-nsis mingw-w64-x86_64-poppler mingw-w64-x86_64-qt5
       - name: Configure
         run: qmake texstudio.pro CONFIG-=debug
-
       - name: Build
         run: make -j 2
 
