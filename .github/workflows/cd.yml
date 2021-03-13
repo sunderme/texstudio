@@ -18,7 +18,7 @@ jobs:
           update: true
           install: git make mingw-w64-x86_64-toolchain mingw-w64-x86_64-qt5 mingw-w64-x86_64-poppler
       - name: Configure
-        run: qmake texstudio.pro CONFIG-=debug
+        run: qmake texstudio.pro CONFIG-=debug MXE=1 BUILD_ADWAITA=1
       - name: Build
         run: make -j 2
 
