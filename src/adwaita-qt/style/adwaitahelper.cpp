@@ -1382,8 +1382,8 @@ void Helper::renderDialContents(QPainter *painter, const QRect &rect, const QCol
         QRectF grooveRect(rect.adjusted(penWidth / 2, penWidth / 2, -penWidth / 2, -penWidth / 2));
 
         // setup angles
-        int angleStart(first * 180 * 16 / M_PI);
-        int angleSpan((second - first) * 180 * 16 / M_PI);
+        int angleStart(first * 180 * 16 / 3.14159);
+        int angleSpan((second - first) * 180 * 16 / 3.14159);
 
         // setup pen
         if (angleSpan != 0) {

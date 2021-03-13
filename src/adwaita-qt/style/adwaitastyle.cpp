@@ -6434,7 +6434,7 @@ bool Style::drawDialComplexControl(const QStyleOptionComplex *option, QPainter *
         QColor shadow(_helper->shadowColor(palette));
 
         // render
-        qreal angle = 270 - 180 * dialAngle(sliderOption, sliderOption->sliderPosition) / M_PI;
+        qreal angle = 270 - 180 * dialAngle(sliderOption, sliderOption->sliderPosition) / 3.14159;
         _helper->renderSliderHandle(painter, handleRect, background, outline, shadow, sunken, enabled, tickSide, angle);
     }
 
@@ -6720,15 +6720,15 @@ qreal Style::dialAngle(const QStyleOptionSlider *sliderOption, int value) const
     // calculate angle at which handle needs to be drawn
     qreal angle(0);
     if (sliderOption->maximum == sliderOption->minimum)
-        angle = M_PI / 2;
+        angle = 3.14159 / 2;
     else {
         qreal fraction(qreal(value - sliderOption->minimum) / qreal(sliderOption->maximum - sliderOption->minimum));
         if (!sliderOption->upsideDown)
             fraction = 1 - fraction;
         if (sliderOption->dialWrapping)
-            angle = 1.5 * M_PI - fraction * 2 * M_PI;
+            angle = 1.5 * 3.14159 - fraction * 2 * 3.14159;
         else
-            angle = (M_PI * 8 - fraction * 10 * M_PI) / 6;
+            angle = (3.14159 * 8 - fraction * 10 * 3.14159) / 6;
     }
 
     return angle;
