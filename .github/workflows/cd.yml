@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-win:
-    name: win build (mxe)
+    name: win build (msys2)
     runs-on: windows-latest
     defaults:
       run:
@@ -18,9 +18,9 @@ jobs:
           update: true
           install: git mingw-w64-x86_64-toolchain mingw-w64-x86_64-nsis mingw-w64-x86_64-poppler mingw-w64-x86_64-qt5
       - name: Configure
-        run: qmake texstudio.pro CONFIG-=debug
-      - name: Build
-        run: make -j 2
+        run: |
+          qmake texstudio.pro CONFIG-=debug
+          make -j 2
 
   build-linux-win:
     name: win build (mxe)
