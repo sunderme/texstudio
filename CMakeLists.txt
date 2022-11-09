@@ -9,6 +9,19 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 17)
 
+find_program(CCACHE_EXECUTABLE ccache)
+if(CCACHE_EXECUTABLE)
+    message(STATUS "use ccache")
+    set(ccacheEnv
+        CCACHE_SLOPPINESS=pch_defines,time_macros
+    )
+    foreach(lang IN ITEMS C CXX)
+        set(CMAKE_${lang}_COMPILER_LAUNCHER
+            ${CMAKE_COMMAND} -E env ${ccacheEnv} ${CCACHE_EXECUTABLE}
+        )
+    endforeach()
+endif()
+
 
 add_compile_options(-Wno-deprecated-declarations)
 
