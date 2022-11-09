@@ -32,11 +32,6 @@ jobs:
       - name: Fetch tag annotations
         run: git fetch --tags --force
 
-      - name: Setup ccache
-        uses: Chocobo1/setup-ccache-action@v1
-        with:
-          windows_compile_environment: msys2
-
       - name: Configure
         run: |
           mkdir build
@@ -189,8 +184,10 @@ jobs:
         wget https://github.com/sunderme/homebrew-qt6-modules/releases/download/6.4.0-1/QuaZip-1.3-Darwin.tar.xz
         sudo tar xvf ./QuaZip-1.3-Darwin.tar.xz -C /usr/local/QtBase-6.4.0-Darwin --strip-components=1
         rm QuaZip-1.3-Darwin.tar.xz
-        brew install cairo fontconfig freetype gettext jpeg libpng libtiff little-cms2 nspr nss openjpeg
-        brew install ninja
+        brew install cairo fontconfig freetype gettext jpeg libpng libtiff little-cms2 nspr nss openjpeg ninja
+
+    - name: Setup ccache
+      uses: Chocobo1/setup-ccache-action@v1
 
     - name: Configure
       run: |
