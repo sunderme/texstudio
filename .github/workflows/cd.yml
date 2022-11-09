@@ -34,6 +34,8 @@ jobs:
 
       - name: Setup ccache
         uses: Chocobo1/setup-ccache-action@v1
+        with:
+          windows_compile_environment: msys2
 
       - name: Configure
         run: |
