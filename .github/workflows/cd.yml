@@ -32,6 +32,9 @@ jobs:
       - name: Fetch tag annotations
         run: git fetch --tags --force
 
+      - name: Setup ccache
+        uses: Chocobo1/setup-ccache-action@v1
+
       - name: Configure
         run: |
           mkdir build
@@ -97,6 +100,9 @@ jobs:
 
     - name: Updates
       run: sudo apt-get update
+
+    - name: Setup ccache
+      uses: Chocobo1/setup-ccache-action@v1
 
     - name: Dependencies
       run: sudo apt-get install qtbase5-dev qt5-default qt5-qmake libqt5svg5-dev qtdeclarative5-dev qttools5-dev libqt5svg5-dev libpoppler-qt5-dev libpoppler-cpp-dev pkg-config zlib1g-dev libquazip5-dev 
