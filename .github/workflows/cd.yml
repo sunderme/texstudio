@@ -276,7 +276,7 @@ jobs:
         uses: johnwason/vcpkg-action@v4
         id: vcpkg
         with:
-          manifest-dir: .github/scripts
+          manifest-dir: ${{ github.workspace }}\.github\scripts
           triplet: x64-windows-release
           token: ${{ github.token }}
 
