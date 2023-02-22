@@ -275,12 +275,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: vcpkg build
-          uses: johnwason/vcpkg-action@v4
-          id: vcpkg
-          with:
-            pkgs: qtbase qt5compat poppler[qt]
-            triplet: x64-windows-release
-            token: ${{ github.token }}
+        uses: johnwason/vcpkg-action@v4
+        id: vcpkg
+        with:
+          pkgs: qtbase qt5compat poppler[qt]
+          triplet: x64-windows-release
+          token: ${{ github.token }}
 
       - name: Fetch tag annotations
         run: git fetch --tags --force
