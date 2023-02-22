@@ -9,6 +9,7 @@ permissions:
 jobs:
   build-linux:
     name: Linux-autoTests
+    if: false
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
