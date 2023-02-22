@@ -4,7 +4,7 @@
   "version": "4.5.2",
   "dependencies": [
     "qtbase",
-    "qt5comapt",
+    "qt5compat",
     "qtsvg",
     "qttools",
     "qtdeclarative",
