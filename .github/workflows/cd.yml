@@ -14,8 +14,7 @@ env:
 jobs:
   build-win10:
     name: win10 build (msys2)
-    if: github.event_name == 'push'
-    if: false
+    if: false # github.event_name == 'push'
     runs-on: windows-latest
     defaults:
       run:
@@ -90,8 +89,7 @@ jobs:
 
   build-linux-release:
     name: linux appimage
-    if: github.event_name == 'push'
-    if: false
+    if: false #github.event_name == 'push'
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
