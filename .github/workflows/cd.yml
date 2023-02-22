@@ -278,7 +278,7 @@ jobs:
         with:
           pkgs: qtbase qt5compat poppler[qt]
           triplet: x64-windows-release
-          token: ${{ secrets.GITHUBTOKEN }}
+          token: ${{ github.token }}
 
       - name: Fetch tag annotations
         run: git fetch --tags --force
