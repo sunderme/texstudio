@@ -15,6 +15,7 @@ jobs:
   build-win10:
     name: win10 build (msys2)
     if: github.event_name == 'push'
+    if: false
     runs-on: windows-latest
     defaults:
       run:
@@ -90,6 +91,7 @@ jobs:
   build-linux-release:
     name: linux appimage
     if: github.event_name == 'push'
+    if: false
     runs-on: ubuntu-18.04
     steps:
     - name: Checkout
@@ -151,7 +153,7 @@ jobs:
 
   macosx:
     name: Mac OS X
-    if: true
+    if: false
     runs-on: macos-11
 
     steps:
@@ -265,3 +267,68 @@ jobs:
       uses: GeekyEggo/delete-artifact@v2.0.0
       with:
         name: release
+
+  build-win10-vcpkg:
+    name: win10 build (vcpkg)
+    if: github.event_name == 'push'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: vcpkg build
+          uses: johnwason/vcpkg-action@v4
+          id: vcpkg
+          with:
+            pkgs: qtbase qt5compat poppler[qt]
+            triplet: x64-windows-release
+            token: ${{ github.token }}
+
+      - name: Fetch tag annotations
+        run: git fetch --tags --force
+
+      - name: Configure
+        run: |
+          mkdir build
+          cd build
+          . ../.github/scripts/get-version.sh
+          sed -i ../win.rc -Ee "s/0,[0,]+/$(tr <<<"$TXS_VERSION" . ,),0/"
+          sed -i ../win.rc -e "s/git[\]0/$VERSION_NAME/"
+          # qmake-qt6 texstudio.pro CONFIG-=debug MXE=1 BUILD_ADWAITA=1 STRIP=1
+          cmake .. -Wno-dev
+          # work-around strange git behaviour on msys2
+          . ../git_revision.sh
+      - name: Build
+        run: |
+          cd build
+          cmake --build . -- -j 2
+      - name: Package
+        id: package
+        run: |
+          cd build
+          . ../.github/scripts/get-version.sh
+          . ../.github/scripts/package_msys.sh
+          echo "VERSION_NAME=${VERSION_NAME}">> $GITHUB_OUTPUT
+          echo "TXS_VERSION=${TXS_VERSION}">> $GITHUB_OUTPUT
+          echo "GIT_VERSION=${GIT_VERSION}">> $GITHUB_OUTPUT
+
+      - name: Upload zip to GitHub Artifacts
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v3
+        with:
+          name: texstudio-win-qt6-zip
+          path: ./build/package-zip/texstudio-win-qt6-${{ steps.package.outputs.VERSION_NAME }}.zip
+          
+      - name: Upload to GitHub Artifacts
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@v3
+        with:
+          name: texstudio-win-qt6-exe
+          path: texstudio-win-qt6-${{ steps.package.outputs.VERSION_NAME }}.exe
+
+      - name: Upload release file(s)
+        uses: actions/upload-artifact@v3
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          name: release
+          path: |
+            texstudio-${{ steps.package.outputs.GIT_VERSION }}-win-qt6.exe
+            texstudio-${{ steps.package.outputs.GIT_VERSION }}-win-portable-qt6.zip
