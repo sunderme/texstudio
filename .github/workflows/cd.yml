@@ -276,7 +276,7 @@ jobs:
         uses: johnwason/vcpkg-action@v4
         id: vcpkg
         with:
-          pkgs: qtbase qt5compat poppler[qt]
+          pkgs: qtbase qt5compat
           triplet: x64-windows-release
           token: ${{ github.token }}
 
