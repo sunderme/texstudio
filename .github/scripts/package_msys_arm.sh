@@ -53,16 +53,16 @@ cd ..
 echo "make installer"
 cp ../utilities/texstudio-msys.nsi .
 cp ../utilities/FileAssociation.nsh .
-makensis texstudio-msys.nsi
+# makensis texstudio-msys.nsi # skip for now
 # zip package
 cd package-zip
 mkdir config
 zip -r ./texstudio-win-qt6-${VERSION_NAME}.zip *
 
 cd ..
-sha256sum ./texstudio_installer.exe
+#sha256sum ./texstudio_installer.exe
 sha256sum ./texstudio.exe
 sha256sum ./package-zip/texstudio-win-qt6-${VERSION_NAME}.zip
 cp ./package-zip/texstudio-win-qt6-${VERSION_NAME}.zip ../texstudio-${GIT_VERSION}-win-portable-qt6.zip
-cp ./texstudio_installer.exe ../texstudio-${GIT_VERSION}-win-qt6.exe
-cp ./texstudio_installer.exe ../texstudio-win-qt6-${VERSION_NAME}.exe
+#cp ./texstudio_installer.exe ../texstudio-${GIT_VERSION}-win-qt6.exe
+#cp ./texstudio_installer.exe ../texstudio-win-qt6-${VERSION_NAME}.exe

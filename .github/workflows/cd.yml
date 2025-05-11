@@ -304,7 +304,8 @@ jobs:
           
       - name: Upload to GitHub Artifacts
         id: upload-artifact
-        if: github.event_name == 'push'
+        if: False
+        # if: github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
           name: texstudio-win-arm-qt6-exe
@@ -312,7 +313,8 @@ jobs:
 
       - name: Codesign
         id: sign
-        if: env.IF_CODESIGN == 'true'
+        if: False
+        # if: env.IF_CODESIGN == 'true'
         uses: signpath/github-action-submit-signing-request@v1
         with:
           api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
@@ -329,7 +331,8 @@ jobs:
 
       - name: copy signed installer
         id: copy_signed_binary
-        if: env.IF_CODESIGN == 'true'
+        if: False
+        # if: env.IF_CODESIGN == 'true'
         run: |
           cp signed-artifacts/texstudio-win-qt6-${{ steps.package.outputs.VERSION_NAME }}.exe texstudio-${{ steps.package.outputs.GIT_VERSION }}-win-qt6-signed.exe
     
