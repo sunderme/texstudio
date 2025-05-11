@@ -232,7 +232,7 @@ jobs:
         if: github.event_name == 'push'
         uses: actions/upload-artifact@v4
         with:
-          name: texstudio-exe
+          name: texstudio-arm-exe
           path: build/texstudio.exe
 
       - name: get version
@@ -624,7 +624,7 @@ jobs:
       actions: write   # for GeekyEggo/delete-artifact to delete artifacts
       contents: write  # for softprops/action-gh-release to create GitHub release
     name: Release
-    needs: [build-win10, build-linux-release, macosx, macosxM1] # build-linux-win,macosx-qt5 is disabled
+    needs: [build-win10, build-win10-arm, build-linux-release, macosx, macosxM1] # build-linux-win,macosx-qt5 is disabled
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/')
     steps:
