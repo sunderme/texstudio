@@ -289,7 +289,7 @@ jobs:
         run: |
           cd build
           . ../.github/scripts/get-version.sh
-          . ../.github/scripts/package_msys.sh
+          . ../.github/scripts/package_msys_arm.sh
           echo "VERSION_NAME=${VERSION_NAME}">> $GITHUB_OUTPUT
           echo "TXS_VERSION=${TXS_VERSION}">> $GITHUB_OUTPUT
           echo "GIT_VERSION=${GIT_VERSION}">> $GITHUB_OUTPUT
