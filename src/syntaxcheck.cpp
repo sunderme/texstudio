@@ -749,6 +749,13 @@ void SyntaxCheck::checkLine(const QString &line, Ranges &newRanges, StackEnviron
 			QStringList forbiddenSymbols;
 			forbiddenSymbols<<"^"<<"_";
             if(forbiddenSymbols.contains(word) && !checkMathEnvActive(activeEnv) && tk.subtype!=Token::formula){
+                // also skip for specialArg defined
+                if(tk.subtype >= Token::specialArg){
+                    QString special = ltxCommands->mapSpecialArgs.value(int(tk.subtype - Token::specialArg));
+                    if (ltxCommands->possibleCommands[special].contains(word)) {
+                        continue; // skip check for special args which are not defined as math commands
+                    }
+                }
 				Error elem;
 				elem.range = QPair<int, int>(tk.start, tk.length);
 				elem.type = ERR_MathCommandOutsideMath;

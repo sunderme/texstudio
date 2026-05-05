@@ -542,8 +542,11 @@ LatexPackage loadCwlFile(const QString fileName, LatexCompleterConfig *config, Q
 				}
                 if (valid.contains('e') && !env.isEmpty()) { // restrict to environments
 					if (res == -1) {
+                        if(cmd.isEmpty()){
+                            cmd=line.simplified();
+                        }
 						foreach (const QString &elem, env)
-							package.possibleCommands[elem] << cmd;
+                            package.possibleCommands[elem] << cmd;
 					} else {
                         QString cmd = rxComMatch.captured(1);
                         QString envName = rxComMatch.captured(3);

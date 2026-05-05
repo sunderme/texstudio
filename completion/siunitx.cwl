@@ -183,6 +183,7 @@
 \pmol#*/%unit
 \ps#*/%unit
 \pV#*/%unit
+^#/%unit
 \qty[options%keyvals]{number}{unit%specialMultiArg}
 \qty{number}{unit%specialMultiArg}
 \qtylist[options%keyvals]{numbers}{unit%specialMultiArg}
